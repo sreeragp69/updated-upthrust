@@ -1,4 +1,10 @@
-export const testimonialImage = [
+import {
+  TestimonialImageArray,
+  GameDevCardsArray,
+  HomeSwiperImagesArray,
+} from "../types/LandingPage.type";
+
+export const testimonialImage: TestimonialImageArray = [
   {
     id: 1,
     image: "/images/svg/user1.svg",
@@ -21,7 +27,7 @@ export const testimonialImage = [
   },
 ];
 
-export const GAME_DEV_CARDS = [
+export const GAME_DEV_CARDS: GameDevCardsArray = [
   {
     id: "crash-bandicoot-2d",
     title: "Become a",
@@ -50,50 +56,49 @@ export const GAME_DEV_CARDS = [
   },
 ];
 
-
-export const HomeSwiperImages =[
+export const HomeSwiperImages: HomeSwiperImagesArray = [
   {
-    id:"1",
-    path:"images/svg/homeswiper1.svg"
+    id: "1",
+    path: "images/svg/homeswiper1.svg",
   },
   {
-    id:"2",
-    path:"images/svg/homeswiper2.svg"
+    id: "2",
+    path: "images/svg/homeswiper2.svg",
   },
   {
-    id:"3",
-    path:"images/svg/homeswiper3.svg"
+    id: "3",
+    path: "images/svg/homeswiper3.svg",
   },
   {
-    id:"4",
-    path:"images/svg/homeswiper4.svg"
+    id: "4",
+    path: "images/svg/homeswiper4.svg",
   },
   {
-    id:"5",
-    path:"images/svg/homeswiper5.svg"
+    id: "5",
+    path: "images/svg/homeswiper5.svg",
   },
   {
-    id:"6",
-    path:"images/svg/homeswiper6.svg"
+    id: "6",
+    path: "images/svg/homeswiper6.svg",
   },
   {
-    id:"7",
-    path:"images/svg/homeswiper7.svg"
+    id: "7",
+    path: "images/svg/homeswiper7.svg",
   },
   {
-    id:"8",
-    path:"images/svg/homeswiper8.svg"
+    id: "8",
+    path: "images/svg/homeswiper8.svg",
   },
   {
-    id:"9",
-    path:"images/svg/homeswiper9.svg"
+    id: "9",
+    path: "images/svg/homeswiper9.svg",
   },
   {
-    id:"10",
-    path:"images/svg/homeswiper10.svg"
+    id: "10",
+    path: "images/svg/homeswiper10.svg",
   },
   {
-    id:"11",
-    path:"images/svg/homeswiper11.svg"
+    id: "11",
+    path: "images/svg/homeswiper11.svg",
   },
-] 
+];

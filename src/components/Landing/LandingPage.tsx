@@ -9,7 +9,7 @@ import HomeSwiper from "../../components/Landing/HomeSwiper";
 const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen mx-auto">
-      <div className="max-w-7xl mt-10 mx-auto  lg:px-6 flex flex-col items-center justify-center">
+      <div className=" mt-10 mx-auto  lg:px-6 flex flex-col items-center justify-center">
         <div className="relative text-center flex items-center justify-center flex-col w-full">
           {/* Mobile decorative dots only (removed gradient) */}
           <div className="md:hidden absolute right-4 top-6 h-10 opacity-70 rotate-6">

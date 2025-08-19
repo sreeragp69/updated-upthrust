@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { EmployeeData } from '../types/EmployeeEditProfile.types';
 
 interface AuthState {
-  user: EmployeeData | null;
+  user:  null;
   token: string | null;
 }
 
@@ -12,7 +11,7 @@ const initialState: AuthState = {
 };
 
 interface SetUserPayload {
-  user: EmployeeData;
+  user: null;
   token: string;
 }
 

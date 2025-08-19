@@ -1,8 +1,9 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, Dispatch, SetStateAction } from "react";
 
 type SidebarContextType = {
   isMobileOpen: boolean;
   toggleMobileSidebar: () => void;
+  setIsMobileOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);

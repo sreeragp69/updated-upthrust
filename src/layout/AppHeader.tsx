@@ -1,18 +1,40 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSidebar } from "../context/SidebarContext";
-import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
-
 import { useSelector } from "react-redux";
-import AppHeaderData from "../constant/AppHeader.data";
 import { Link } from "react-router";
+import {
+  AppHeaderProps,
+  RootState,
+  AppHeaderItem,
+} from "../types/AppHeader.type";
+import AppHeaderData from "../constant/AppHeader.data";
+import { div } from "framer-motion/client";
 
-const AppHeader: React.FC = () => {
-  const currentUser = useSelector((state: any) => state.auth.user);
+import MenuItem from "../components/AppHeader/MenuItem";
+import CourseItem from "../components/AppHeader/CourseItem";
+import Menu from "../components/AppHeader/Menu";
+// import Menu from "./Menu";
+// import MenuItem from "./MenuItem";
+// import CourseItem from "./CourseItem";
+
+/* -------------------- Transition Config -------------------- */
+const transition = {
+  type: "spring" as const,
+  mass: 0.5,
+  damping: 11.5,
+  stiffness: 100,
+  restDelta: 0.001,
+  restSpeed: 0.001,
+};
+
+/* -------------------- AppHeader -------------------- */
+const AppHeader: React.FC<AppHeaderProps> = () => {
+  const currentUser = useSelector((state: RootState) => state.auth.user);
 
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
-
   const { isMobileOpen, toggleMobileSidebar } = useSidebar();
+  const [active, setActive] = useState<string | null>(null);
 
   const handleToggle = () => {
     toggleMobileSidebar();
@@ -31,18 +53,26 @@ const AppHeader: React.FC = () => {
         inputRef.current?.focus();
       }
     };
-
     document.addEventListener("keydown", handleKeyDown);
-
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
   return (
-    <header className="sticky top-0 flex w-full bg-themeBackgroundColor z-999999 ">
-      <div className="flex flex-col items-center justify-between w-full max-w-7xl mx-auto px-4 lg:px-6">
-        <div className="flex items-center justify-between w-full gap-4 py-4 lg:py-5">
+    <motion.header
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="sticky top-0 flex mx-auto  bg-themeBackgroundColor z-[999999]"
+    >
+      <div className="flex flex-col items-center justify-between w-full  mx-auto px-4 lg:px-6">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex items-center justify-between w-full gap-4 py-4 lg:py-5"
+        >
           {/* Mobile Menu Button */}
           <AnimatePresence>
             <div className="flex items-center lg:hidden">
@@ -82,7 +112,11 @@ const AppHeader: React.FC = () => {
           </AnimatePresence>
 
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <motion.div
+            className="flex-shrink-0"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+          >
             <div className="text-black dark:text-white">
               <img
                 src="images/logo/logo.svg"
@@ -90,89 +124,80 @@ const AppHeader: React.FC = () => {
                 className="h-10 w-auto"
               />
             </div>
-          </div>
+          </motion.div>
 
-          {/* Navigation Links */}
+          {/* Navigation Links (Desktop with Dropdowns) */}
           <div className="hidden lg:flex items-center gap-8">
-            {AppHeaderData.map((item) => (
-              <div key={item.id}>
-                <Link
-                  to={item.path}
-                  className="text-gray-700 uppercase dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200 relative group"
+            <Menu setActive={setActive}>
+              {AppHeaderData.map((item: AppHeaderItem) => (
+                <MenuItem
+                  key={item.id}
+                  item={item.name}
+                  active={active}
+                  setActive={setActive}
                 >
-                  {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
-                </Link>
-              </div>
-            ))}
+                  {item.isDropdown && item.dropdownList && (
+                    <div className="grid grid-cols-2 gap-6 p-4 text-sm">
+                      {item.dropdownList.map((course, index) => (
+                        <CourseItem
+                          key={index}
+                          title={course.courseName}
+                          href={`/courses/${course.courseName
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")}`}
+                          src={course.courseImg}
+                          description={course.description}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </MenuItem>
+              ))}
+            </Menu>
           </div>
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            {/* Theme Toggle */}
-            {/* <ThemeToggleButton /> */}
-
             {/* Auth Buttons */}
-            <div className="hidden sm:flex items-center gap-3">
-              <Link
-                to="/login"
-                className="px-6 py-2 text-sm font-normal alexandria bg-themePrimary text-white border border-themePrimary rounded-full hover:bg-blue-50 hover:text-themePrimary transition-all duration-200"
+            <motion.div
+              className="hidden sm:flex items-center gap-3"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                className="px-6 py-2 text-sm font-normal alexandria text-themePrimary   bg-white border border-themePrimary rounded-full hover:bg-blue-50 hover:text-themePrimary transition-all duration-200"
-              >
-                Sign up
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{
-              opacity: isApplicationMenuOpen ? 1 : 0,
-              height: isApplicationMenuOpen ? "auto" : 0,
-            }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden w-full overflow-hidden border-t border-gray-200 dark:border-gray-700"
-          >
-            <div className="py-4 space-y-3">
-              {AppHeaderData.map((item) => (
                 <Link
-                  key={item.id}
-                  to={item.path}
-                  className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
+                  to="/login"
+                  className="px-6 py-2 text-sm font-normal alexandria bg-themePrimary text-white border border-themePrimary rounded-full hover:bg-blue-50 hover:text-themePrimary transition-all duration-200"
                 >
-                  {item.name}
+                  Login
                 </Link>
-              ))}
-              <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                <div className="flex flex-col gap-3 px-4">
-                  <Link
-                    to="/login"
-                    className="w-full px-4 py-2 text-center text-sm font-normal font-alexandria text-blue-600 dark:text-blue-400 border border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    to="/signup"
-                    className="w-full px-4 py-2 text-center text-sm font-normal alexandria text-white bg-blue-600 dark:bg-blue-500 border border-blue-600 dark:border-blue-500 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-all duration-200"
-                  >
-                    Sign up
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  to="/signup"
+                  className="px-6 py-2 text-sm font-normal alexandria text-themePrimary bg-white border border-themePrimary rounded-full hover:bg-blue-50 hover:text-themePrimary transition-all duration-200"
+                >
+                  Sign up
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
-    </header>
+    </motion.header>
   );
 };
 
 export default AppHeader;
+
+/* -------------------- Dropdown Components -------------------- */
+
+
+

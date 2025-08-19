@@ -42,7 +42,7 @@ export default function LoginForm() {
       dispatch(setUser({ user: mockUser, token: mockToken }));
 
       // Navigate to dashboard
-      navigate("/dashboard");
+      navigate("/");
 
       setEmail("");
       setPassword("");
