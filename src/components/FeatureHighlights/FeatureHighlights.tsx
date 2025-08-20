@@ -10,7 +10,7 @@ type Feature = {
 export function FeatureHighlights() {
   return (
     <div className=" mx-auto ">
-      <div className=" lg:mt-20 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  py-5 px-4 sm:px-6">
+      <div className=" lg:mt-20 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  py-5">
         {features.map((feature: Feature) => (
           <FeatureBadge
             key={feature.id}

@@ -2,6 +2,7 @@
 
 import type React from "react";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { learnLatestData } from "../../constant/LearnLatest.data";
 import {
   LearnLatestData,
@@ -33,14 +34,30 @@ const IllustrationSkeleton = () => (
 const FeatureCard: React.FC<{ feature: LearnLatestFeature }> = ({
   feature,
 }) => (
-  <div className="space-y-2 max-w-sm mx-auto md:mx-0">
-    <h3 className="text-lg sm:text-xl md:text-xl font-bold text-gray-900 leading-tight">
+  <motion.div 
+    className="space-y-2 max-w-sm mx-auto md:mx-0"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, ease: "easeOut" }}
+  >
+    <motion.h3 
+      className="text-lg sm:text-xl md:text-xl font-bold text-gray-900 leading-tight"
+      initial={{ opacity: 0, x: -10 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.3, duration: 0.4 }}
+    >
       {feature.title}
-    </h3>
-    <p className="text-gray-600 text-xs sm:text-sm md:text-sm">
+    </motion.h3>
+    <motion.p 
+      className="text-gray-600 text-xs sm:text-sm md:text-sm"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ delay: 0.4, duration: 0.5 }}
+    >
       {feature.description}
-    </p>
-  </div>
+    </motion.p>
+  </motion.div>
 );
 
 
@@ -49,6 +66,27 @@ const FeatureCard: React.FC<{ feature: LearnLatestFeature }> = ({
 const LearnLatest: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<LearnLatestData | null>(null);
+  
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
+  };
 
   useEffect(() => {
     // Simulate loading delay
@@ -63,7 +101,7 @@ const LearnLatest: React.FC = () => {
   if (isLoading) {
     return (
       <section className="py-12 md:py-16 lg:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto ">
           {/* Mobile/Tablet Header skeleton - only visible on smaller screens */}
           <div className="mb-8 md:mb-10 lg:hidden animate-pulse">
             <div className="text-center">
@@ -109,63 +147,129 @@ const LearnLatest: React.FC = () => {
   if (!data) return null;
 
   return (
-    <section className="py-12 md:py-16 lg:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 md:py-16 lg:py-24 overflow-hidden">
+      <div className="container mx-auto ">
         {/* Title section - always visible, positioned at top on mobile/tablet */}
-        <div className="mb-8 md:mb-10 lg:hidden">
+        <motion.div 
+          className="mb-8 md:mb-10 lg:hidden"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="text-center lg:text-start">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+            <motion.h2 
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight"
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               {data.mainTitle}
-            </h2>
-            <p className="text-gray-600 text-sm sm:text-base md:text-base mx-auto max-w-md">
+            </motion.h2>
+            <motion.p
+              className="text-gray-600 text-sm sm:text-base md:text-base mx-auto max-w-md"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               {data.subtitle}
-            </p>
-            <div className="mt-6">
+            </motion.p>
+            <motion.div 
+              className="mt-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
               <Button children="Contact Now" />
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 md:gap-8 items-start lg:items-center">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 md:gap-8 items-start lg:items-center"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {/* Left side content - hidden on mobile/tablet, visible on desktop */}
-          <div className="hidden lg:block lg:col-span-3 space-y-4 xl:space-y-8">
+          <motion.div 
+            className="hidden lg:block lg:col-span-3 space-y-4 xl:space-y-8"
+            variants={itemVariants}
+          >
             {/* Left content */}
-            <div className="text-start">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-4xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+            <motion.div 
+              className="text-start"
+              variants={itemVariants}
+            >
+              <motion.h2 
+                className="text-2xl sm:text-3xl md:text-4xl xl:text-4xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+              >
                 {data.mainTitle}
-              </h2>
-              <p className="text-gray-600 text-sm sm:text-base md:text-base w-full lg:w-3/4">
+              </motion.h2>
+              <motion.p 
+                className="text-gray-600 text-sm sm:text-base md:text-base w-full lg:w-3/4"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
                 {data.subtitle}
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
 
-            <Button children="Contact Now" />
-          </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <Button children="Contact Now" />
+            </motion.div>
+          </motion.div>
 
           {/* Center illustration - order first on desktop, centered on all screens */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-6 flex justify-center order-none">
+          <motion.div 
+            className="col-span-1 md:col-span-2 lg:col-span-6 flex justify-center order-none"
+            variants={itemVariants}
+          >
             <div className="relative w-full max-w-md mx-auto">
-              <img
+              <motion.img
                 src={data.illustration.src || "/placeholder.svg"}
                 alt={data.illustration.alt}
                 className="w-full h-auto max-w-[16rem] sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg object-contain relative z-10 mx-auto"
                 loading="lazy"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                whileHover={{ scale: 1.05, rotate: 2 }}
               />
              
             </div>
-          </div>
+          </motion.div>
 
           {/* Right side features */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-3 space-y-4 xl:space-y-8">
-            <div className="text-center md:text-left lg:text-left">
+          <motion.div 
+            className="col-span-1 md:col-span-2 lg:col-span-3 space-y-4 xl:space-y-8"
+            variants={itemVariants}
+          >
+            <motion.div 
+              className="text-center md:text-left lg:text-left"
+              variants={containerVariants}
+            >
               {data.features.map((feature) => (
-                <div key={feature.id} className="mb-6 md:mb-8">
+                <motion.div 
+                  key={feature.id} 
+                  className="mb-6 md:mb-8"
+                  variants={itemVariants}
+                >
                   <FeatureCard feature={feature} />
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

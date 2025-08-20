@@ -9,14 +9,10 @@ import {
   AppHeaderItem,
 } from "../types/AppHeader.type";
 import AppHeaderData from "../constant/AppHeader.data";
-import { div } from "framer-motion/client";
 
 import MenuItem from "../components/AppHeader/MenuItem";
 import CourseItem from "../components/AppHeader/CourseItem";
 import Menu from "../components/AppHeader/Menu";
-// import Menu from "./Menu";
-// import MenuItem from "./MenuItem";
-// import CourseItem from "./CourseItem";
 
 /* -------------------- Transition Config -------------------- */
 const transition = {
@@ -64,7 +60,7 @@ const AppHeader: React.FC<AppHeaderProps> = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="sticky top-0 flex mx-auto  bg-themeBackgroundColor z-[999999]"
+      className="sticky top-0 flex p-2 md:p-6 sm:p-4 mx-auto max-w-(--breakpoint-2xl) bg-themeBackgroundColor z-[999999]"
     >
       <div className="flex flex-col items-center justify-between w-full  mx-auto px-4 lg:px-6">
         <motion.div

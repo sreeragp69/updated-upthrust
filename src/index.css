@@ -26,8 +26,8 @@
   --color-themeSidebarBg: #e8edf2;
   --color-themeSidebarBgDark: #e8edf2;
 
-  --color-themeGradientColorFrom: #534caa;
-  --color-themeGradientColorTo: #403a8a;
+  --color-themeGradientColorFrom: #135ce9 ;
+  --color-themeGradientColorTo: #0954ec ;
   /* Custom CSS Class Ends */
   --font-*: initial;
   --font-outfit: Outfit, Poppins;
@@ -40,7 +40,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
+  --breakpoint-2xl: 1400px;
 
   --text-title-2xl: 72px;
   --text-title-2xl--line-height: 90px;

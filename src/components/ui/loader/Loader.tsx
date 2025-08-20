@@ -64,7 +64,7 @@ export default function Loader({ onComplete, duration = 4000 }: LoaderProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-300 tracking-wide">
+          <h2 className="text-2xl  alexandria uppercase  font-semibold text-gray-700 dark:text-gray-300 tracking-wide">
             upthrust
           </h2>
         </motion.div>

@@ -5,10 +5,11 @@ import Backdrop from "./Backdrop";
 import AppSidebar from "./AppSidebar";
 import AppHeaderSkeleton from "../components/AppHeader/Skeletons/AppHeaderSkeleton";
 import { useEffect, useState } from "react";
+import AppFooter from "./AppFooter";
 
 const LayoutContent: React.FC = () => {
   const { isMobileOpen, setIsMobileOpen } = useSidebar();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     // Simulate loading (2 seconds)
     const timer = setTimeout(() => {
@@ -17,8 +18,6 @@ const LayoutContent: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  
 
   return (
     <div className="min-h-screen flex">
@@ -30,11 +29,13 @@ const LayoutContent: React.FC = () => {
 
       {/* Main Content */}
       <div className="flex-1 transition-all duration-300 ease-in-out">
-      {loading ? <AppHeaderSkeleton /> : <AppHeader />}
-      
-        <div className="p-2 md:p-6 sm:p-4 mx-auto max-w-(--breakpoint-2xl)">
+        {loading ? <AppHeaderSkeleton /> : <AppHeader />}
+
+        <div className="p-2 md:p-6 sm:p-4 pb-0! mx-auto max-w-(--breakpoint-2xl)">
           <Outlet />
         </div>
+        
+        <AppFooter />
       </div>
     </div>
   );

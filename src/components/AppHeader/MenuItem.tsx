@@ -52,7 +52,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         <div className="absolute top-[calc(100%+1rem)] left-1/2 -translate-x-1/2 pt-4 z-50">
           <div className="absolute -top-4 left-0 right-0 h-4 bg-transparent" />
           <div
-            className="bg-white/20 dark:bg-black/30 backdrop-blur-xl rounded-2xl overflow-hidden 
+            className="bg-white dark:bg-black/30 backdrop-blur-x rounded-2xl overflow-hidden 
                  border border-white/30 dark:border-white/20 shadow-2xl shadow-blue-500/10"
             onMouseEnter={() => setActive(item)}
             onMouseLeave={() => setActive(null)}

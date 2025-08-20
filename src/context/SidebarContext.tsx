@@ -48,6 +48,7 @@ export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         isMobileOpen,
         toggleMobileSidebar,
+        setIsMobileOpen,
       }}
     >
       {children}

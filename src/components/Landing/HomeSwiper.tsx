@@ -5,7 +5,7 @@ import { HomeSwiperImages } from "../../constant/Home.data";
 
 const HomeSwiper = () => {
   return (
-    <div className="mx-auto w-[90vw]">
+    <div className="mx-auto w-[90vw]   lg:w-[86%]">
       <Swiper
         loop
         autoplay={{
